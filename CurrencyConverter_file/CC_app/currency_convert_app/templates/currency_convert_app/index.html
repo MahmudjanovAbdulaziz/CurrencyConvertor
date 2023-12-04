@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="calculator-container">
+    <form action="" method="post" class="calculator-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="text" name="amount" id="amount" class="form-control input-control">
+      </div>
+      <div class="form-group">
+        <label for="from_curr">From Currency:</label>
+        <select name="from_curr" id="from_curr" class="form-control input-control" value="{{from_curr}}">
+
+            {% for curr in currenciens %}
+                <option value="{{curr}}" {% if from_curr == curr %} selected {% endif %}>{{curr}}</option>
+            {% endfor %}
+
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="to_curr">To Currency:</label>
+        <select name="to_curr" id="to_curr" class="form-control input-control" value="{{to_curr}}">
+          {% for curr in currenciens %}
+                <option value="{{curr}}" {% if from_curr == curr %} selected {% endif %}>{{curr}}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-animate">Calculate</button>
+
+        {% if converted_amount %}
+            <p>Отдаем {{from_curr}} Получаем {{to_curr}}</p>
+
+            <p>Ответ {{converted_amount}}</p>
+        {% endif %}
+      
+    </form>
+
+    
+
+  </div>
+{% endblock %}
